@@ -45,7 +45,11 @@ def get_popularity_figure(seed_keyword):
     return fig
 
 def get_trending_figure():
-    query = ('SELECT * FROM trending_keywords;')
+    query = ('''
+        SELECT * 
+        FROM trending_keywords
+        WHERE year >= 1990;
+    ''')
     with mysql.connector.connect(
         user=config.MYSQL_USER, 
         password=config.MYSQL_PASSWORD, 
