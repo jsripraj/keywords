@@ -5,7 +5,7 @@ hidden_style = {'width': '100%', 'height': '0px'}
 shown_style = {'width': '100%', 'height': '400px'}
 
 @callback(
-    Output(component_id='cytoscape', component_property='elements'),
+    Output(component_id='cytoscape', component_property='elements', allow_duplicate=True),
     Output(component_id='cytoscape', component_property='style', allow_duplicate=True),
     Input(component_id='faculty_dropdown', component_property='value'),
     State(component_id='keyword_dropdown', component_property='value'),

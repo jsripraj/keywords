@@ -13,6 +13,7 @@ import closeness_widget
     Output(component_id='ins_reset', component_property='disabled'),
     Output(component_id='faculty_dropdown', component_property='disabled'),
     Output(component_id='cytoscape', component_property='style'),
+    Output(component_id='cytoscape', component_property='elements'),
     Output(component_id='popularity_graph', component_property='figure'),
     Output(component_id='focus_graph', component_property='figure'),
     Input(component_id='keyword_dropdown', component_property='value'),
@@ -31,6 +32,7 @@ def keyword_selected(selected_keyword, faculty_id):
         not kw_selected, # institute reset button
         not kw_selected, # faculty_dropdown
         cyto_style, # hide/show cytoscape
+        neo4j_utils.get_shortest_path(faculty_id, selected_keyword), # cytoscape
         mysql_utils.get_popularity_figure(selected_keyword) if kw_selected else {}, # popularity graph figure
         mongodb_utils.get_focus_figure(selected_keyword) if kw_selected else {}, # focus graph figure
     )

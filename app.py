@@ -65,7 +65,6 @@ app.layout = [
                         'style': {
                             'content': 'data(label)'
                         }
-
                     },
 
                     # Class selectors
