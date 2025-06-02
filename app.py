@@ -21,25 +21,28 @@ app.layout = [
         html.Div(dcc.Dropdown(options=neo4j_utils.get_suggestable_keywords(), placeholder="Search for a keyword...", id='keyword_dropdown')),
     ]),
 
-    # Focus widget
-    html.Div([
-        html.H2("Focus on Keyword"),
-        html.Div(dcc.Graph(
-            figure={},
-            id='focus_graph',
-        ))
+    # First row
+    html.Div(style={'display': 'flex'}, children=[
+        # Focus widget
+        html.Div(style={'width': '50%'}, children=[
+            html.H2("Focus on Keyword"),
+            html.Div(dcc.Graph(
+                figure={},
+                id='focus_graph',
+            ))
+        ]),
+
+        # Popularity widget
+        html.Div(style={'width': '50%'}, children=[
+            html.H2("Keyword Popularity Over Time"),
+            html.Div(dcc.Graph(
+                figure={},
+                id='popularity_graph',
+            ))
+        ]),
     ]),
 
-
-    # Popularity widget
-    html.Div([
-        html.H2("Keyword Popularity Over Time"),
-        html.Div(dcc.Graph(
-            figure={},
-            id='popularity_graph',
-        ))
-    ]),
-
+    # Second row
     # Closeness widget
     html.Div([
         html.H2("Faculty Closeness to Keyword"),
@@ -92,30 +95,33 @@ app.layout = [
         ])
     ]),
 
-    # Trending widget
-    html.Div([
-        html.H2("Top Trending Keywords"),
-        html.Div(dcc.Graph(
-            figure=mysql_utils.get_trending_figure(),
-            id='trending_graph',
-        ))
-    ]),
+    # Third row
+    html.Div(style={'display': 'flex'}, children=[
+        # Trending widget
+        html.Div(style={'width': '50%'}, children=[
+            html.H2("Top Trending Keywords"),
+            html.Div(dcc.Graph(
+                figure=mysql_utils.get_trending_figure(),
+                id='trending_graph',
+            ))
+        ]),
 
-    # Suggested keywords widget
-    html.Div([
-        html.H2("Suggested Keywords"),
-        html.Div(dcc.Checklist([], id='kw_checklist')),
-        html.Button('Hide Selected', id='kw_hide', disabled=True),
-        html.Button('Reset Hidden', id='kw_reset', disabled=True)
-    ]),
+        # Suggested keywords widget
+        html.Div(style={'width': '25%'}, children=[
+            html.H2("Suggested Keywords"),
+            html.Div(dcc.Checklist([], id='kw_checklist')),
+            html.Button('Hide Selected', id='kw_hide', disabled=True),
+            html.Button('Reset Hidden', id='kw_reset', disabled=True)
+        ]),
 
-    # Suggested institutes widget
-    html.Div([
-        html.H2("Suggested Institutes"),
-        html.Div(dcc.Checklist([], id='ins_checklist')),
-        html.Button('Hide Selected', id='ins_hide', disabled=True),
-        html.Button('Reset Hidden', id='ins_reset', disabled=True)
-    ]),
+        # Suggested institutes widget
+        html.Div(style={'width': '25%'}, children=[
+            html.H2("Suggested Institutes"),
+            html.Div(dcc.Checklist([], id='ins_checklist')),
+            html.Button('Hide Selected', id='ins_hide', disabled=True),
+            html.Button('Reset Hidden', id='ins_reset', disabled=True)
+        ]),
+    ])
 ]
 
 if __name__ == '__main__':
