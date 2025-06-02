@@ -106,19 +106,23 @@ app.layout = [
         ]),
 
         # Suggested keywords widget
-        html.Div(style={'width': '25%'}, children=[
-            html.H2("Suggested Keywords"),
-            html.Div(dcc.Checklist([], id='kw_checklist')),
-            html.Button('Hide Selected', id='kw_hide', disabled=True),
-            html.Button('Reset Hidden', id='kw_reset', disabled=True)
+        html.Div(style={'width': '25%', 'display': 'flex', 'justify-content': 'center'}, children=[
+            html.Div(children=[
+                html.H2("Suggested Keywords"),
+                html.Div(dcc.Checklist([], id='kw_checklist')),
+                html.Button('Hide Selected', id='kw_hide', disabled=True),
+                html.Button('Reset Hidden', id='kw_reset', disabled=True)
+            ])
         ]),
 
         # Suggested institutes widget
-        html.Div(style={'width': '25%'}, children=[
-            html.H2("Suggested Institutes"),
-            html.Div(dcc.Checklist([], id='ins_checklist')),
-            html.Button('Hide Selected', id='ins_hide', disabled=True),
-            html.Button('Reset Hidden', id='ins_reset', disabled=True)
+        html.Div(style={'width': '25%', 'display': 'flex', 'justify-content': 'center'}, children=[
+            html.Div(children=[
+                html.H2("Suggested Institutes"),
+                html.Div(dcc.Checklist([], id='ins_checklist')),
+                html.Button('Hide Selected', id='ins_hide', disabled=True),
+                html.Button('Reset Hidden', id='ins_reset', disabled=True)
+            ])
         ]),
     ])
 ]
