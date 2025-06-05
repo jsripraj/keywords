@@ -10,11 +10,13 @@ def get_focus_figure(keyword):
             faculty = database.get_collection("faculty")
             publications = database.get_collection("publications")
             pub_pipeline = []
-            pub_pipeline.append({
+
+            # Project id, year, keywordScore, totalScore columns
+            pub_pipeline.append({ 
                 "$project": {
                     "id": 1, 
                     "year": 1, 
-                    "keywordScore": {
+                    "keywordScore": { # the keyword score if it's the selected keyword, else 0
                         "$ifNull": [
                             {
                                 "$first": {
@@ -36,10 +38,14 @@ def get_focus_figure(keyword):
                 }
             })
             fac_pipeline = []
+
+            # Get faculty associated with the selected keyword
             fac_pipeline.extend([
                 {"$match": {"keywords.name": keyword}},
                 {"$project": {"publications": 1}}
             ])
+
+            # Run pub_pipeline and join with faculty
             fac_pipeline.append({
                 "$lookup": {
                     "from": "publications",
@@ -49,6 +55,8 @@ def get_focus_figure(keyword):
                     "as": "publications"
                 }
             })
+
+            # Sum and sort by year
             fac_pipeline.extend([
                 {"$unwind": {"path": "$publications"}},
                 {"$group": {
@@ -71,6 +79,8 @@ def get_focus_figure(keyword):
                 {"$sort": {"year": 1}}
             ])
             result = faculty.aggregate(fac_pipeline)
+
+            # Make sure there is data for all consecutive years
             year, focus = [], []
             curYear = 0
             for r in result:
@@ -87,8 +97,10 @@ def get_focus_figure(keyword):
                         year.append(r['year'])
                         focus.append(r['focus'])
                         curYear = r['year'] + 1
+
             df = pd.DataFrame(data={'year': year, 'focus': focus})
             fig = px.line(df, x='year', y='focus', markers=True)
             return fig
+
         except Exception as e:
             raise Exception("Unable to find the document due to the following error: ", e)

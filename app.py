@@ -29,7 +29,11 @@ app.layout = [
             html.Div(dcc.Graph(
                 figure={},
                 id='focus_graph',
-            ))
+            )),
+            html.P("For selected keyword k, Focus attempts to measure how much k consumes the publications of interested faculty. "
+                   "Each publication has a keyword score representing its association with that keyword. "
+                   "Focus is calculated as the ratio of the cumulative score for k to the cumulative score for all keywords, "
+                   "for all publications of the faculty who are interested in k.")
         ]),
 
         # Popularity widget
@@ -38,7 +42,8 @@ app.layout = [
             html.Div(dcc.Graph(
                 figure={},
                 id='popularity_graph',
-            ))
+            )),
+            html.P("hellow orld")
         ]),
     ]),
 
