@@ -13,13 +13,16 @@ import suggested_institutes_widget
 
 app = Dash()
 
-app.layout = [
-    html.H1("Keyword Analyzer"),
+app.layout = html.Div([
+    html.H1("Keyword Analyzer", style={'text-align': 'center'}),
 
     # Main keyword dropdown
     html.Div([
-        html.Div(dcc.Dropdown(options=neo4j_utils.get_suggestable_keywords(), placeholder="Search for a keyword...", id='keyword_dropdown')),
-    ]),
+        html.Div(dcc.Dropdown(options=neo4j_utils.get_suggestable_keywords(), 
+                              placeholder="Search for a keyword...", 
+                              id='keyword_dropdown'),
+                 style={'width': '30%'}), 
+    ], style={'display': 'flex', 'justify-content': 'center'}),
 
     # First row
     html.Div(style={'display': 'flex'}, children=[
@@ -130,7 +133,7 @@ app.layout = [
             ])
         ]),
     ])
-]
+])
 
 if __name__ == '__main__':
     app.run(debug=True)
