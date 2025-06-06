@@ -1,5 +1,6 @@
 import mysql.connector
 import plotly.express as px
+import pandas as pd
 import config
 import time
 
@@ -59,30 +60,26 @@ def get_trending_figure():
         with cnx.cursor(buffered=True) as cur:
             try:
                 cur.execute(query)
-                keyword_to_data = {}
+                keyword_col, year_col, pub_count_col = [], [], []
+                current_keyword = ""
+                current_year = -1
                 for (keyword, year, pub_count) in cur:
-                    if keyword in keyword_to_data:
-                        keyword_to_data[keyword]['years'].append(year)
-                        keyword_to_data[keyword]['pub_counts'].append(pub_count)
+                    year = int(year)
+                    if keyword != current_keyword:
+                        current_keyword = keyword
+                        current_year = year
                     else:
-                        keyword_to_data[keyword] = {'years': [year], 'pub_counts': [pub_count]}
-                for keyword in keyword_to_data.keys():
-                     keyword_to_data[keyword]['years'], keyword_to_data[keyword]['pub_counts'] = \
-                        make_consecutive_years(zip(keyword_to_data[keyword]['years'], keyword_to_data[keyword]['pub_counts']))
+                        while current_year < year:
+                            keyword_col.append(current_keyword)
+                            year_col.append(current_year)
+                            pub_count_col.append(0)
+                            current_year += 1
+                    keyword_col.append(keyword)
+                    year_col.append(year)
+                    pub_count_col.append(pub_count)
+                    current_year += 1
             except Exception as e:
                 print(e)
-    fig = {
-        'data': [
-            {
-                'x': keyword_to_data[keyword]['years'],
-                'y': keyword_to_data[keyword]['pub_counts'],
-                'type': 'line',
-                'name': keyword
-            }
-        for keyword in keyword_to_data.keys()],
-        'layout': {
-            'xaxis': {'title': 'Year'},
-            'yaxis': {'title': 'Number of Related Publications'},
-        }
-    }
+    df = pd.DataFrame(data={'Keyword': keyword_col, 'Year': year_col, 'Number of Related Publications': pub_count_col})
+    fig = px.line(df, x="Year", y="Number of Related Publications", color='Keyword')
     return fig
