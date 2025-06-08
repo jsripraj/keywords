@@ -11,7 +11,7 @@ import closeness_widget
 import suggested_keywords_widget
 import suggested_institutes_widget
 
-app = Dash()
+app = Dash(__name__)
 
 app.layout = html.Div([
     html.H1("Keyword Analyzer", style={'text-align': 'center'}),
@@ -27,7 +27,7 @@ app.layout = html.Div([
     # First row
     html.Div(style={'display': 'flex'}, children=[
         # Focus widget
-        html.Div(style={'width': '50%'}, children=[
+        html.Div(className="card", style={'width': '50%'}, children=[
             html.H2("Focus on Keyword"),
             html.Div(dcc.Graph(
                 figure={},
@@ -40,19 +40,18 @@ app.layout = html.Div([
         ]),
 
         # Popularity widget
-        html.Div(style={'width': '50%'}, children=[
+        html.Div(className="card", style={'width': '50%'}, children=[
             html.H2("Keyword Popularity Over Time"),
             html.Div(dcc.Graph(
                 figure={},
                 id='popularity_graph',
             )),
-            html.P("hellow orld")
         ]),
     ]),
 
     # Second row
     # Closeness widget
-    html.Div([
+    html.Div(className="card", children=[
         html.H2("Faculty Closeness to Keyword"),
         html.Div(dcc.Dropdown(
             options=neo4j_utils.get_faculty(), 
@@ -105,7 +104,7 @@ app.layout = html.Div([
     # Third row
     html.Div(style={'display': 'flex'}, children=[
         # Trending widget
-        html.Div(style={'width': '50%'}, children=[
+        html.Div(className="card", style={'width': '50%'}, children=[
             html.H2("Top Trending Keywords"),
             html.Div(dcc.Graph(
                 figure=mysql_utils.get_trending_figure(),
@@ -114,7 +113,7 @@ app.layout = html.Div([
         ]),
 
         # Suggested keywords widget
-        html.Div(style={'width': '25%', 'display': 'flex', 'justify-content': 'center'}, children=[
+        html.Div(className="card", style={'width': '25%', 'display': 'flex', 'justify-content': 'center'}, children=[
             html.Div(children=[
                 html.H2("Suggested Keywords"),
                 html.Div(dcc.Checklist([], id='kw_checklist')),
@@ -124,7 +123,7 @@ app.layout = html.Div([
         ]),
 
         # Suggested institutes widget
-        html.Div(style={'width': '25%', 'display': 'flex', 'justify-content': 'center'}, children=[
+        html.Div(className="card", style={'width': '25%', 'display': 'flex', 'justify-content': 'center'}, children=[
             html.Div(children=[
                 html.H2("Suggested Institutes"),
                 html.Div(dcc.Checklist([], id='ins_checklist')),
