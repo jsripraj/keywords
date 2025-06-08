@@ -98,8 +98,8 @@ def get_focus_figure(keyword):
                         focus.append(r['focus'])
                         curYear = r['year'] + 1
 
-            df = pd.DataFrame(data={'year': year, 'focus': focus})
-            fig = px.line(df, x='year', y='focus', markers=True)
+            df = pd.DataFrame(data={'Year': year, 'Focus': focus})
+            fig = px.line(df, x='Year', y='Focus', markers=True)
             return fig
 
         except Exception as e:
