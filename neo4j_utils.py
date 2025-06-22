@@ -1,4 +1,5 @@
 from neo4j import GraphDatabase
+import pandas as pd
 import neo4j
 import config
 
@@ -33,7 +34,7 @@ def get_suggested_keywords(seed_keyword) -> list[str]:
             )
         except Exception as e:
             print(e)
-    return [record.data('Keyword')['Keyword'] for record in records]
+    return [{'Keyword': record.data('Keyword')['Keyword']} for record in records]
 
 def hide_keywords(keywords) -> None:
     with GraphDatabase.driver(URI, auth=AUTH) as driver:

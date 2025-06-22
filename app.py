@@ -1,7 +1,7 @@
 # Run this app with `python3 app.py` and
 # visit http://127.0.0.1:8050/ in your web browser.
 
-from dash import Dash, html, dcc, Input, Output, State, callback
+from dash import Dash, html, dcc, Input, Output, State, callback, dash_table
 import dash_cytoscape as cyto
 import plotly.graph_objs as go
 import neo4j_utils
@@ -116,9 +116,20 @@ app.layout = html.Div([
         html.Div(className="card", style={'width': '25%', 'display': 'flex', 'justify-content': 'center'}, children=[
             html.Div(children=[
                 html.H2("Suggested Keywords"),
-                html.Div(dcc.Checklist([], id='kw_checklist')),
-                html.Button('Hide Selected', id='kw_hide', disabled=True),
-                html.Button('Reset Hidden', id='kw_reset', disabled=True)
+                html.Div(dash_table.DataTable(
+                    columns=[{'name': 'Keyword', 'id': 'Keyword'}], 
+                    style_as_list_view=True, 
+                    style_cell={'textAlign': 'left'}, 
+                    style_header={
+                        'backgroundColor': 'lightgray',
+                        'fontWeight': 'bold'
+                    },
+                    id='kw_table')
+                ),
+                html.Div(style={'display': 'flex', 'justify-content': 'center'}, children=[
+                    html.Button('Hide Selected', className="button", id='kw_hide', disabled=True),
+                    html.Button('Reset Hidden', className="button", id='kw_reset', disabled=True)
+                ])
             ])
         ]),
 
@@ -127,8 +138,10 @@ app.layout = html.Div([
             html.Div(children=[
                 html.H2("Suggested Institutes"),
                 html.Div(dcc.Checklist([], id='ins_checklist')),
-                html.Button('Hide Selected', id='ins_hide', disabled=True),
-                html.Button('Reset Hidden', id='ins_reset', disabled=True)
+                html.Div(style={'display': 'flex', 'justify-content': 'center'}, children=[
+                    html.Button('Hide Selected', className="button", id='ins_hide', disabled=True),
+                    html.Button('Reset Hidden', className="button", id='ins_reset', disabled=True)
+                ])
             ])
         ]),
     ])
