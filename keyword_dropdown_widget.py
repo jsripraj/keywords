@@ -8,7 +8,7 @@ import closeness_widget
     Output(component_id='kw_table', component_property='data'),
     Output(component_id='kw_hide', component_property='disabled'),
     Output(component_id='kw_reset', component_property='disabled'),
-    Output(component_id='ins_checklist', component_property='options'),
+    Output(component_id='ins_table', component_property='data'),
     Output(component_id='ins_hide', component_property='disabled'),
     Output(component_id='ins_reset', component_property='disabled'),
     Output(component_id='faculty_dropdown', component_property='disabled'),
@@ -24,10 +24,10 @@ def keyword_selected(selected_keyword, faculty_id):
     kw_selected = selected_keyword is not None
     cyto_style = closeness_widget.shown_style if (kw_selected and faculty_id) else closeness_widget.hidden_style
     return (
-        neo4j_utils.get_suggested_keywords(selected_keyword), # keyword table options
+        neo4j_utils.get_suggested_keywords(selected_keyword), # keyword table data
         not kw_selected, # keyword hide button
         not kw_selected, # keyword reset button
-        neo4j_utils.get_suggested_institutes(selected_keyword), # institute checklist options
+        neo4j_utils.get_suggested_institutes(selected_keyword), # institute table data
         not kw_selected, # institute hide button
         not kw_selected, # institute reset button
         not kw_selected, # faculty_dropdown

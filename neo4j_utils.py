@@ -77,7 +77,7 @@ def get_suggested_institutes(seed_keyword) -> list[str]:
             )
         except Exception as e:
             print(e)
-    return [record.get('institute') for record in records]
+    return [{'Institute': record.get('institute')} for record in records]
 
 def hide_institutes(institutes) -> None:
     with GraphDatabase.driver(URI, auth=AUTH) as driver:

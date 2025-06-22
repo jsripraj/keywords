@@ -137,7 +137,16 @@ app.layout = html.Div([
         html.Div(className="card", style={'width': '25%', 'display': 'flex', 'justify-content': 'center'}, children=[
             html.Div(children=[
                 html.H2("Suggested Institutes"),
-                html.Div(dcc.Checklist([], id='ins_checklist')),
+                html.Div(dash_table.DataTable(
+                    columns=[{'name': 'Institute', 'id': 'Institute'}], 
+                    style_as_list_view=True, 
+                    style_cell={'textAlign': 'left'}, 
+                    style_header={
+                        'backgroundColor': 'lightgray',
+                        'fontWeight': 'bold'
+                    },
+                    id='ins_table')
+                ),
                 html.Div(style={'display': 'flex', 'justify-content': 'center'}, children=[
                     html.Button('Hide Selected', className="button", id='ins_hide', disabled=True),
                     html.Button('Reset Hidden', className="button", id='ins_reset', disabled=True)
