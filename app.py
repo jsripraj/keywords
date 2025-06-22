@@ -14,7 +14,7 @@ import suggested_institutes_widget
 app = Dash(__name__)
 
 app.layout = html.Div([
-    html.H1("Keyword Analyzer", style={'text-align': 'center'}),
+    html.H1("Keyword Analyzer"),
 
     # Main keyword dropdown
     html.Div([
