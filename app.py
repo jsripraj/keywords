@@ -17,12 +17,12 @@ app.layout = html.Div([
     html.H1("Keyword Analyzer"),
 
     # Main keyword dropdown
-    html.Div([
+    html.Div(className="center-content", children=[
         html.Div(dcc.Dropdown(options=neo4j_utils.get_suggestable_keywords(), 
                               placeholder="Search for a keyword...", 
                               id='keyword_dropdown'),
                  style={'width': '30%'}), 
-    ], style={'display': 'flex', 'justify-content': 'center'}),
+    ]),
 
     # First row
     html.Div(style={'display': 'flex'}, children=[
@@ -53,12 +53,16 @@ app.layout = html.Div([
     # Closeness widget
     html.Div(className="card", children=[
         html.H2("Faculty Closeness to Keyword"),
-        html.Div(dcc.Dropdown(
-            options=neo4j_utils.get_faculty(), 
-            placeholder="Search for faculty...", 
-            id='faculty_dropdown', 
-            disabled=True
-        )),
+        html.Div(className="center-content", children=[
+            html.Div(style={'width': '30%'}, children=[
+                dcc.Dropdown(
+                    options=neo4j_utils.get_faculty(), 
+                    placeholder="Search for faculty...", 
+                    id='faculty_dropdown', 
+                    disabled=True,
+                )
+            ]),
+        ]),
         html.Div([
             cyto.Cytoscape(
                 id='cytoscape',

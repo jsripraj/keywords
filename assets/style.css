@@ -16,3 +16,8 @@ h1, h2 {
 .button {
     margin: 10px;
 }
+
+.center-content {
+    display: flex;
+    justify-content: center;
+}
