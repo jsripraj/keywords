@@ -76,29 +76,21 @@ app.layout = html.Div([
                     # Group selectors
                     {
                         'selector': 'node',
-                        'style': {
-                            'content': 'data(label)'
-                        }
+                        'style': {'content': 'data(label)'}
                     },
 
                     # Class selectors
                     {
                         'selector': '.faculty',
-                        'style': {
-                            'background-color': 'DarkGreen',
-                        }
+                        'style': {'background-color': 'DarkGreen',}
                     },
                     {
                         'selector': '.keyword',
-                        'style': {
-                            'background-color': 'DarkRed',
-                        }
+                        'style': {'background-color': 'DarkRed',}
                     },
                     {
                         'selector': '.edge',
-                        'style': {
-                            'line-color': 'LightBlue'
-                        }
+                        'style': {'line-color': 'LightBlue'}
                     }
                 ]
             )
