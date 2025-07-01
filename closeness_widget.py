@@ -7,7 +7,7 @@ shown_style = {'width': '100%', 'height': '400px'}
 @callback(
     Output(component_id='cytoscape', component_property='elements', allow_duplicate=True),
     Output(component_id='cytoscape', component_property='style', allow_duplicate=True),
-    Output(component_id='closeness_header', component_property='children', allow_duplicate=True),
+    Output(component_id='closeness_faculty_span', component_property='children'),
     Input(component_id='faculty_dropdown', component_property='value'),
     State(component_id='keyword_dropdown', component_property='value'),
     State(component_id='faculty_dropdown', component_property='options'),
@@ -19,7 +19,7 @@ def faculty_selected(faculty_id, keyword, faculty_options):
     return (
         neo4j_utils.get_shortest_path(faculty_id, keyword), 
         show_cyto,
-        'Distance from ' + (faculty_label if faculty_label else 'Faculty') + ' to ' + keyword
+        faculty_label if faculty_label else 'Faculty'
     )
 
 def get_faculty_label(fac_id: str, fac_options: list) -> str:

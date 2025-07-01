@@ -14,7 +14,7 @@ import suggested_institutes_widget
 app = Dash(__name__)
 
 app.layout = html.Div([
-    html.H1("Keyword Analyzer"),
+    html.H1(children=[html.Span('Keyword', className='keyword'), " Analyzer"]),
 
     # Main keyword dropdown
     html.Div(className="center-content", children=[
@@ -28,7 +28,7 @@ app.layout = html.Div([
     html.Div(style={'display': 'flex'}, children=[
         # Focus widget
         html.Div(className="card", style={'width': '50%'}, children=[
-            html.H2(id='focus_header', children="Focus on Keyword"),
+            html.H2(["Focus on ", html.Span('Keyword', className='keyword', id='focus_keyword_span')]),
             html.Div(dcc.Graph(
                 figure={},
                 id='focus_graph',
@@ -41,7 +41,7 @@ app.layout = html.Div([
 
         # Popularity widget
         html.Div(className="card", style={'width': '50%'}, children=[
-            html.H2(id='popularity_header', children="Popularity of Keyword"),
+            html.H2(["Popularity of ", html.Span('Keyword', className='keyword', id='popularity_keyword_span')]),
             html.Div(dcc.Graph(
                 figure={},
                 id='popularity_graph',
@@ -52,7 +52,10 @@ app.layout = html.Div([
     # Second row
     # Closeness widget
     html.Div(className="card", children=[
-        html.H2(id='closeness_header', children="Distance from Faculty to Keyword"),
+        html.H2(["Distance from ", 
+                 html.Span('Faculty', className='faculty', id='closeness_faculty_span'), 
+                 " to ", 
+                 html.Span('Keyword', className='keyword', id='closeness_keyword_span')]),
         html.Div(className="center-content", children=[
             html.Div(style={'width': '30%'}, children=[
                 dcc.Dropdown(
@@ -82,22 +85,19 @@ app.layout = html.Div([
                     {
                         'selector': '.faculty',
                         'style': {
-                            'background-color': 'lightgreen',
-                            'line-color': 'green'
+                            'background-color': 'DarkGreen',
                         }
                     },
                     {
                         'selector': '.keyword',
                         'style': {
-                            'background-color': 'skyblue',
-                            'line-color': 'blue'
+                            'background-color': 'DarkRed',
                         }
                     },
                     {
                         'selector': '.edge',
                         'style': {
-                            'background-color': 'gold',
-                            'line-color': 'red'
+                            'line-color': 'LightBlue'
                         }
                     }
                 ]
