@@ -16,13 +16,19 @@ import closeness_widget
     Output(component_id='cytoscape', component_property='elements'),
     Output(component_id='popularity_graph', component_property='figure'),
     Output(component_id='focus_graph', component_property='figure'),
+    Output(component_id='focus_header', component_property='children'),
+    Output(component_id='popularity_header', component_property='children'),
+    Output(component_id='closeness_header', component_property='children'),
     Input(component_id='keyword_dropdown', component_property='value'),
     State(component_id='faculty_dropdown', component_property='value'),
+    State(component_id='faculty_dropdown', component_property='options'),
     prevent_initial_call=True
 )
-def keyword_selected(selected_keyword, faculty_id):
+def keyword_selected(selected_keyword, faculty_id, faculty_options):
     kw_selected = selected_keyword is not None
     cyto_style = closeness_widget.shown_style if (kw_selected and faculty_id) else closeness_widget.hidden_style
+    header_word = selected_keyword if kw_selected else 'Keyword'
+    faculty_label = closeness_widget.get_faculty_label(faculty_id, faculty_options)
     return (
         neo4j_utils.get_suggested_keywords(selected_keyword), # keyword table data
         not kw_selected, # keyword hide button
@@ -35,4 +41,7 @@ def keyword_selected(selected_keyword, faculty_id):
         neo4j_utils.get_shortest_path(faculty_id, selected_keyword), # cytoscape
         mysql_utils.get_popularity_figure(selected_keyword) if kw_selected else {}, # popularity graph figure
         mongodb_utils.get_focus_figure(selected_keyword) if kw_selected else {}, # focus graph figure
+        'Focus on ' + header_word, # focus widget header
+        'Popularity of ' + header_word, # popularity widget header
+        'Distance from ' + (faculty_label if faculty_label else 'Faculty') + ' to ' + header_word, # closeness widget header
     )

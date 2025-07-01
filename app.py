@@ -28,7 +28,7 @@ app.layout = html.Div([
     html.Div(style={'display': 'flex'}, children=[
         # Focus widget
         html.Div(className="card", style={'width': '50%'}, children=[
-            html.H2("Focus on Keyword"),
+            html.H2(id='focus_header', children="Focus on Keyword"),
             html.Div(dcc.Graph(
                 figure={},
                 id='focus_graph',
@@ -41,7 +41,7 @@ app.layout = html.Div([
 
         # Popularity widget
         html.Div(className="card", style={'width': '50%'}, children=[
-            html.H2("Keyword Popularity Over Time"),
+            html.H2(id='popularity_header', children="Popularity of Keyword"),
             html.Div(dcc.Graph(
                 figure={},
                 id='popularity_graph',
@@ -52,7 +52,7 @@ app.layout = html.Div([
     # Second row
     # Closeness widget
     html.Div(className="card", children=[
-        html.H2("Faculty Closeness to Keyword"),
+        html.H2(id='closeness_header', children="Distance from Faculty to Keyword"),
         html.Div(className="center-content", children=[
             html.Div(style={'width': '30%'}, children=[
                 dcc.Dropdown(
