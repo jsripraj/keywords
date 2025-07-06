@@ -24,12 +24,10 @@ h1, h2 {
 
 .keyword {
     color: DarkRed;
-    font-weight: lighter;
     font-style: italic;
 }
 
 .faculty {
     color: DarkGreen;
-    font-weight: lighter;
     font-style: italic;
 }
